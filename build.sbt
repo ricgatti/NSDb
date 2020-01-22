@@ -131,7 +131,7 @@ lazy val `nsdb-cluster` = project
     },
     version in Docker := version.value,
     maintainer in Docker := organization.value,
-    dockerRepository := Some("tools.radicalbit.io"),
+    dockerRepository := Some("weareradicalbit"),
     defaultLinuxInstallLocation in Docker := s"/opt/${(packageName in Docker).value}",
     dockerCommands := Seq(
       Cmd("FROM", "tools.radicalbit.io/service-java-base:1.0"),
