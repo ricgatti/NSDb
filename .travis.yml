@@ -24,5 +24,6 @@ after_success:
     test "${TRAVIS_JDK_VERSION}" = 'oraclejdk8' &&
     sh "$TRAVIS_BUILD_DIR/travis-credentials.sh" &&
     sbt +publish
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker push weareradicalbit/nsdb:$BUILD
+  - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
+  - docker image ls
+  - docker push DOCKER_USERNAME/nsdb:1.0.0-SNAPSHOT
