@@ -37,8 +37,7 @@ lazy val root = project
     `nsdb-scala-api`,
     `nsdb-sql`,
     `nsdb-cli`,
-    `nsdb-perf`,
-    `nsdb-it`
+    `nsdb-perf`
   )
 
 lazy val packageDist   = taskKey[File]("create universal package and move it to package folder")
@@ -99,20 +98,7 @@ lazy val `nsdb-cluster` = project
   .enablePlugins(MultiJvmPlugin)
   .configs(MultiJvm)
   .settings(
-    compile in MultiJvm := ((compile in MultiJvm) triggeredBy (compile in Test)).value,
-    executeTests in Test := {
-      import sbt.protocol.testing.TestResult.Failed
-      val testResults      = (executeTests in Test).value
-      val multiNodeResults = (executeTests in MultiJvm).value
-      val overall =
-        if (multiNodeResults.overall == Failed)
-          multiNodeResults.overall
-        else
-          testResults.overall
-      Tests.Output(overall,
-                   testResults.events ++ multiNodeResults.events,
-                   testResults.summaries ++ multiNodeResults.summaries)
-    }
+    compile in MultiJvm := ((compile in MultiJvm) triggeredBy (compile in Test)).value
   )
   .enablePlugins(AutomateHeaderPlugin)
   .settings(LicenseHeader.settings: _*)
