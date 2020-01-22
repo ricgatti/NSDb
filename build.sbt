@@ -134,7 +134,7 @@ lazy val `nsdb-cluster` = project
     dockerRepository := Some("weareradicalbit"),
     defaultLinuxInstallLocation in Docker := s"/opt/${(packageName in Docker).value}",
     dockerCommands := Seq(
-      Cmd("FROM", "tools.radicalbit.io/service-java-base:1.0"),
+      Cmd("FROM", "openjdk:8-jre-alpine"),
       Cmd("LABEL", s"""MAINTAINER="${organization.value}""""),
       Cmd("WORKDIR", s"/opt/${(packageName in Docker).value}"),
       Cmd("RUN", "addgroup", "-S", "nsdb", "&&", "adduser", "-S", "nsdb", "-G", "nsdb"),
