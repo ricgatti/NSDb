@@ -25,5 +25,5 @@ after_success:
     sh "$TRAVIS_BUILD_DIR/travis-credentials.sh" &&
     sbt +publish
   - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-  - docker tag $DOCKER_USER/nsdb $DOCKER_USER/nsdb:$TRAVIS_BUILD_NUMBER
-  - docker push $DOCKER_USER/nsdb:$TRAVIS_BUILD_NUMBER
+  - docker tag weareradicalbit/nsdb weareradicalbit/nsdb:$BUILD
+  - docker push weareradicalbit/nsdb:$BUILD
