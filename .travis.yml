@@ -2,6 +2,8 @@ sudo: required
 language: scala
 scala:
   - 2.12.12
+services:
+  - docker
 jdk:
   - openjdk8
 before_cache:
@@ -22,3 +24,6 @@ after_success:
     test "${TRAVIS_JDK_VERSION}" = 'oraclejdk8' &&
     sh "$TRAVIS_BUILD_DIR/travis-credentials.sh" &&
     sbt +publish
+  - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+  - docker tag $DOCKER_USER/nsdb $DOCKER_USER/nsdb:$TRAVIS_BUILD_NUMBER
+  - docker push $DOCKER_USER/nsdb:$TRAVIS_BUILD_NUMBER
