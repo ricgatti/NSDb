@@ -25,7 +25,7 @@ after_success:
     sh "$TRAVIS_BUILD_DIR/travis-credentials.sh"
   - |
     if [[[ ${TRAVIS_BRANCH} -eq "master" || ${TRAVIS_BRANCH} = branch-* ] && ${TRAVIS_EVENT_TYPE} = "push" ] || ${TRAVIS_TAG} -ne "" ]; then
-      sbt publish
-      docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-      sbt docker:publish;
+      sbt publish ;
+      docker login -u $DOCKER_USER -p $DOCKER_PASSWORD ;
+      sbt docker:publish ;
     fi
