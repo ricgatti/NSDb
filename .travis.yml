@@ -24,8 +24,7 @@ after_success:
     test "${TRAVIS_JDK_VERSION}" = 'oraclejdk8' &&
     sh "$TRAVIS_BUILD_DIR/travis-credentials.sh"
   - env
-  - |
-    if [[ "$TRAVIS_BRANCH" == "master" || "$TRAVIS_BRANCH" == branch-* ]]; then
+  - if [[ "$TRAVIS_BRANCH" == "master" || "$TRAVIS_BRANCH" == branch-* && "$TRAVIS_EVENT_TYPE" == "push" ]] || [[ "$TRAVIS_TAG" != "" ]]  && [[ "$TRAVIS_REPO_SLUG" == "radicalbit/NSDb" ]]; then
       sbt publish ;
       docker login -u $DOCKER_USER -p $DOCKER_PASSWORD ;
       sbt docker:publish ;
