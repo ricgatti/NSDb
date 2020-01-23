@@ -23,6 +23,7 @@ after_success:
     test "${TRAVIS_REPO_SLUG}" = 'radicalbit/NSDb' &&
     test "${TRAVIS_JDK_VERSION}" = 'oraclejdk8' &&
     sh "$TRAVIS_BUILD_DIR/travis-credentials.sh" &&
+  - if: (((branch = master OR branch =~ ^branch-) AND type = push) OR (tag IS present)) AND NOT fork
     sbt publish
-  - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-  - sbt docker:publish
+    docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+    sbt docker:publish
